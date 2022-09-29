@@ -39,7 +39,7 @@ class GroupCoordinatorDaemon(socketserver.BaseRequestHandler):
 
 
     print('start sleep')
-    #time.sleep(2.0)
+    time.sleep(1.6)
     print('end')
 
     self.request.sendall(response)
@@ -51,4 +51,7 @@ if __name__ == '__main__':
     exit(1)
   port = int(sys.argv[1])
   with socketserver.TCPServer(('', port), GroupCoordinatorDaemon) as server:
-    server.serve_forever()
+    try:
+      server.serve_forever()
+    except KeyboardInterrupt as e:
+      print('Shutting down...')
